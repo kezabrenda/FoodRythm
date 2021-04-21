@@ -1,6 +1,7 @@
 package com.example.foodrythm.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class RecipesActivity extends AppCompatActivity {
     @BindView(R.id.progressBar) ProgressBar mProgressBar;
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     private RecipeListAdapter mAdapter;
+    public List<Recipe> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,16 @@ public class RecipesActivity extends AppCompatActivity {
                 hideProgressBar();
 
                 if (response.isSuccessful()) {
-                    List<Recipe> ingredientsList = response.body().getRecipes();
+                    recipes = response.body().getRecipes();
+                    mAdapter = new RecipeListAdapter(RecipesActivity.this, recipes);
+                    mRecyclerView.setAdapter(mAdapter);
+                    RecyclerView.LayoutManager layoutManager =
+                            new LinearLayoutManager(RecipesActivity.this);
+                    mRecyclerView.setLayoutManager(layoutManager);
+                    mRecyclerView.setHasFixedSize(true);
+
+
+                   /* List<Recipe> ingredientsList = response.body().getRecipes();
                     String[] recipes = new String[ingredientsList.size()];
 
                     for (int i = 0; i < recipes.length; i++){
@@ -67,7 +78,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                     ArrayAdapter adapter
                             = new MyRecipesArrayAdapter(RecipesActivity.this, android.R.layout.simple_list_item_1, recipes);
-                    mListView.setAdapter(adapter);
+                    mListView.setAdapter(adapter);*/
                     showRecipes();
                 } else {
                     showUnsuccessfulMessage();
@@ -94,8 +105,7 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void showRecipes() {
-        mListView.setVisibility(View.VISIBLE);
-        mFoodTypeTextView.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
     private void hideProgressBar() {
