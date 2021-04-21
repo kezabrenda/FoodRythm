@@ -1,6 +1,7 @@
 package com.example.foodrythm.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodrythm.R;
 import com.example.foodrythm.models.Recipe;
+import com.example.foodrythm.ui.RecipeDetailActivity;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -45,7 +49,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         return mRecipes.size();
     }
 
-    public class RecipesViewHolder extends RecyclerView.ViewHolder {
+    public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.imageUrlImageView) ImageView mImageUrlImageView;
         @BindView(R.id.recipeNameTextView) TextView mNameTextView;
         @BindView(R.id.sourceUrlTextView) TextView mSourceUrlTextView;
@@ -57,6 +61,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
+            itemView.setOnClickListener(this);
         }
 
         public void bindRecipe(Recipe recipe) {
@@ -64,6 +69,15 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             mNameTextView.setText(recipe.getTitle());
             mSourceUrlTextView.setText(recipe.getSourceUrl());
             mSocialRankTextView.setText("social_rank: " + recipe.getSocialRank());
+        }
+
+        @Override
+        public void onClick(View v) {
+            int itemPosition = getLayoutPosition();
+            Intent intent = new Intent(mContext, RecipeDetailActivity.class);
+            intent.putExtra("position", itemPosition);
+            intent.putExtra("recipes", Parcels.wrap(mRecipes));
+            mContext.startActivity(intent);
         }
     }
 }
