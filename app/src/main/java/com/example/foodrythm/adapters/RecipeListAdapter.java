@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodrythm.R;
 import com.example.foodrythm.models.Recipe;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         }
 
         public void bindRecipe(Recipe recipe) {
+            Picasso.get().load(recipe.getImageUrl()).into(mImageUrlImageView);
             mNameTextView.setText(recipe.getTitle());
             mSourceUrlTextView.setText(recipe.getSourceUrl());
             mSocialRankTextView.setText("social_rank: " + recipe.getSocialRank());
