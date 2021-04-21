@@ -1,6 +1,7 @@
 package com.example.foodrythm.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodrythm.adapters.RecipeListAdapter;
 import com.example.foodrythm.models.ForkifySearchResponse;
 import com.example.foodrythm.MyRecipesArrayAdapter;
 import com.example.foodrythm.R;
@@ -32,8 +34,8 @@ public class RecipesActivity extends AppCompatActivity {
     public static final String TAG = RecipesActivity.class.getSimpleName();
     @BindView(R.id.errorTextView) TextView mErrorTextView;
     @BindView(R.id.progressBar) ProgressBar mProgressBar;
-    @BindView(R.id.foodTypeTextView) TextView mFoodTypeTextView;
-    @BindView(R.id.listView) ListView mListView;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+    private RecipeListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +43,8 @@ public class RecipesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipes);
         ButterKnife.bind(this);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String dessert = ((TextView)view).getText().toString();
-                Toast.makeText(RecipesActivity.this, dessert, Toast.LENGTH_LONG).show();
-                Log.v( TAG, "In the onItemClickListener!");
-            }
-        });
-
         Intent intent = getIntent();
         String foodType = intent.getStringExtra("foodType");
-        mFoodTypeTextView.setText("Here are all the related recipes: " + foodType);
         Log.d( TAG, "In the onCreate method!");
 
         /*******************************************API********************************************/
