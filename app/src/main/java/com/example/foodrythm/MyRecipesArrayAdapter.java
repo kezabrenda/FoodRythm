@@ -8,7 +8,7 @@ public class MyRecipesArrayAdapter extends ArrayAdapter {
     private String[] mDessertRecipes;
     private String[] mCookingTime;
 
-    public MyRecipesArrayAdapter(Context mContext, int resource, String[] mDessertRecipes, String[] mCookingTime) {
+    public MyRecipesArrayAdapter(Context mContext, int resource, String[] mDessertRecipes) {
         super(mContext, resource);
         this.mContext = mContext;
         this.mDessertRecipes = mDessertRecipes;

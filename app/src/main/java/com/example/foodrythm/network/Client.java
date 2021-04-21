@@ -9,8 +9,7 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.foodrythm.Constants.Spoonacular_API_KEY;
-import static com.example.foodrythm.Constants.Spoonacular_BASE_URL;
+import static com.example.foodrythm.Constants.Forkify_BASE_URL;
 
 public class Client {
     private static Retrofit retrofit = null;
@@ -23,7 +22,6 @@ public class Client {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
                             Request newRequest  = chain.request().newBuilder()
-                                    .addHeader("Authorization", Spoonacular_API_KEY)
                                     .build();
                             return chain.proceed(newRequest);
                         }
@@ -31,7 +29,7 @@ public class Client {
                     .build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(Spoonacular_BASE_URL)
+                    .baseUrl(Forkify_BASE_URL)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
