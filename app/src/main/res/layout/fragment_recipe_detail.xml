@@ -12,11 +12,11 @@
         android:background="@color/colorPrimaryDark">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
             android:id="@+id/imageUrlImageView"
-            android:src="@drawable/ingredients"
-            android:scaleType="centerCrop" />
+            android:layout_width="match_parent"
+            android:layout_height="274dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ingredients" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -81,7 +81,8 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:background="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
